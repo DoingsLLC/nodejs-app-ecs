@@ -7,7 +7,7 @@ pipeline {
     environment {
     ACR_NAME = "doingsacr"
     registyUrl = "doingsacr.azurecr.io"
-    IMAGE_NAME = "doings-webapp"
+    IMAGE_NAME = "doings/nodejs-app"
     IMAGE_TAG = "v1"
     registryCredential  = "doingsacr-credential"
     }
