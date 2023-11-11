@@ -1,45 +1,56 @@
 pipeline {
     agent any
-   
+
     environment {
-        AWS_ACCESS_KEY_ID = credentials('DOINGS_ACCESS_KEY_ID')
+        AWS_ACCESS_KEY_ID     = credentials('DOINGS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('DOINGS_SECRET_ACCESS_KEY')
-        AWS_DEFAULT_REGION = "us-east-1"
+        AWS_DEFAULT_REGION    = "us-east-1"
     }
+
     stages {
         stage('Checkout') {
             steps {
-           git branch: 'main', url: 'https://github.com/DoingsLLC/nodejs-app.git'
-  
+                script {
+                    git branch: 'main', url: 'https://github.com/DoingsLLC/nodejs-app.git'
+                }
             }
         }
-    
-        stage ("terraform init") {
+
+        stage("terraform init") {
             steps {
-                sh "terraform init" 
+                script {
+                    sh "terraform init"
+                }
             }
         }
-  
-        stage ("plan") {
+
+        stage("terraform plan") {
             steps {
-                sh "terraform plan" 
+                script {
+                    sh "terraform plan"
+                }
             }
         }
-        stage (" Action") {
+
+        stage("terraform apply") {
             steps {
-                sh 'terraform ${action} --auto-approve' 
-           }
+                script {
+                    sh "terraform apply --auto-approve"
+                }
+            }
         }
-//        stage("Deploy to EKS") {
-           // when {
-             //  expression { params.apply }
-           // }
-            steps {
-  //                sh "aws eks update-kubeconfig --name eks_cluster"
-    //               sh "kubectl apply -f deployment.yml"
-             }
-        }
+
+        // Uncomment this stage if you want to deploy to EKS
+        // stage("Deploy to EKS") {
+        //     when {
+        //         expression { params.apply }
+        //     }
+        //     steps {
+        //         script {
+        //             sh "aws eks update-kubeconfig --name eks_cluster"
+        //             sh "kubectl apply -f deployment.yml"
+        //         }
+        //     }
+        // }
     }
 }
-   
-    
