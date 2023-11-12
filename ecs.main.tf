@@ -33,8 +33,8 @@ EOF
 }
 
 # Create a service to run the task on the cluster
-resource "aws_ecs_service" "doings_ecs_service" {
-  name            = "doings_ecs-service"
+resource "aws_ecs_service" "_ecs_service" {
+  name            = "ecs-service"
   cluster         = aws_ecs_cluster.my_cluster.id
   task_definition = aws_ecs_task_definition.my_task_definition.arn
   desired_count   = 1
