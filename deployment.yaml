@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: doings-container
-          image: doingsacr.azurecr.io/nodejswebapp:v1
+          image: doingsllc/nodejs-app:V10.01
           ports:
             - containerPort: 3000
 
@@ -31,6 +31,6 @@ spec:
     app: doings-app
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 80
+      targetPort: 80
   type: LoadBalancer
