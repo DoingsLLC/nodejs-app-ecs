@@ -64,7 +64,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "doings_ecs_task_execution_policy" {
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-  role       = aws_iam_role.doings_ecs_task_execution_role.name
+  role       = aws_iam_role.ecs_task_execution_role.name
 }
