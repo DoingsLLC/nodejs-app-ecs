@@ -20,7 +20,7 @@ resource "aws_ecs_task_definition" "my_task_definition" {
 [
   {
     "name": "doings-container",
-    "image": "456618395112.dkr.ecr.us-east-1.amazonaws.com/doingsecr",  
+    "image": "456618395112.dkr.ecr.us-east-1.amazonaws.com/doingsecr:V1.8",  
     "portMappings": [
       {
         "containerPort": 80,
