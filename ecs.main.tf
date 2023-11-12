@@ -5,7 +5,7 @@ provider "aws" {
 
 # Create an ECS cluster
 resource "aws_ecs_cluster" "my_cluster" {
-  name = "karo-ecs-cluster"  
+  name = "doings-ecs-cluster"  
 }
 
 # Create a task definition
@@ -19,7 +19,7 @@ resource "aws_ecs_task_definition" "my_task_definition" {
   container_definitions   = <<EOF
 [
   {
-    "name": "my-container",
+    "name": "doings-container",
     "image": "456618395112.dkr.ecr.us-east-1.amazonaws.com/doingsecr",  
     "portMappings": [
       {
@@ -33,8 +33,8 @@ EOF
 }
 
 # Create a service to run the task on the cluster
-resource "aws_ecs_service" "my_service" {
-  name            = "my-service"
+resource "aws_ecs_service" "doings_ecs_service" {
+  name            = "doings_ecs-service"
   cluster         = aws_ecs_cluster.my_cluster.id
   task_definition = aws_ecs_task_definition.my_task_definition.arn
   desired_count   = 1
@@ -47,7 +47,7 @@ resource "aws_ecs_service" "my_service" {
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "ecs_task_execution_role"
+  name = "doings_ecs_task_execution_role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -55,7 +55,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "ecs-tasks.amazonaws.com"
+        "Service": "doings_ecs-tasks.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
     }
@@ -64,7 +64,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
+resource "aws_iam_role_policy_attachment" "doings_ecs_task_execution_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-  role       = aws_iam_role.ecs_task_execution_role.name
+  role       = aws_iam_role.doings_ecs_task_execution_role.name
 }
