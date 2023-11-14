@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_ecs_cluster" "my_cluster" {
-  name = "default-ecs-cluster"
+  name = "doings-ecs-cluster"
 }
 
 resource "aws_ecs_task_definition" "my_task_definition" {
@@ -18,8 +18,8 @@ resource "aws_ecs_task_definition" "my_task_definition" {
   container_definitions = <<EOF
 [
   {
-    "name": "my-container",
-    "image": "nginx:latest",
+    "name": "doings-container",
+    "image": "doingsllc/nodejs-app:V10.01",
     "portMappings": [
       {
         "containerPort": 80,
@@ -32,7 +32,7 @@ EOF
 }
 
 resource "aws_ecs_service" "ecs_service" {
-  name            = "default-ecs-service"
+  name            = "dongs-ecs-service"
   cluster         = aws_ecs_cluster.my_cluster.id
   task_definition = aws_ecs_task_definition.my_task_definition.arn
   launch_type     = "FARGATE"
@@ -44,7 +44,7 @@ resource "aws_ecs_service" "ecs_service" {
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "default-ecs-task-execution-role"
+  name = "doings-ecs-task-execution-role"
 
   assume_role_policy = <<EOF
 {
