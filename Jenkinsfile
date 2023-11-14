@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'main', url: 'https://github.com/DoingsLLC/nodejs-app.git'
+                    git branch: 'main', url: 'https://github.com/DoingsLLC/nodejs-app-ecs.git'
                 }
             }
         }
