@@ -18,7 +18,7 @@ resource "aws_ecs_task_definition" "doings_task" {
 [
   {
     "name": "doings-container",
-    "image": "nginx:latest"
+    "image": "nginx:latest",
     "portMappings": [
       {
         "containerPort": 80,
